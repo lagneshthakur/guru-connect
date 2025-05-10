@@ -32,6 +32,8 @@ This project implements a secure group messaging system that supports both priva
    ```
    DATABASE_URL=<your_mongodb_connection_string>
    JWT_SECRET=<your_jwt_secret>
+   AES_SECRET_KEY=<your_aes_secret_key>
+   PORT=3000
    ```
 
 4. Start the server:
@@ -41,6 +43,10 @@ This project implements a secure group messaging system that supports both priva
 
 ## API Documentation
 - Refer to swagger docs available at /api-docs
+- Use Postman or any API client to test the endpoints. POSTman docs are available at - 
+  ```
+  https://documenter.getpostman.com/view/19044245/2sB2j999fz
+  ```
 
 ## Docker
 
