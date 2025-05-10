@@ -1,0 +1,654 @@
+{
+	"info": {
+		"_postman_id": "37e301f6-7bb7-4bab-ac66-c5d23a7f7ea0",
+		"name": "guru-connect",
+		"description": "API docs for Guru Connect backend system\n\nMake sure to use the following base URL: {{guruBase}}",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19044245"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"user2@guru-connect.com\",\n  \"password\": \"securepassword123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{guruBase}}/api/auth/register",
+							"host": [
+								"{{guruBase}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Parse the response body",
+									"const responseBody = pm.response.json();",
+									"",
+									"// Extract the token from the response",
+									"const token = responseBody.token;",
+									"",
+									"// Save the token to an environment variable",
+									"pm.environment.set('authToken', token);",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"user2@guru-connect.com\",\n  \"password\": \"securepassword123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{guruBase}}/api/auth/login",
+							"host": [
+								"{{guruBase}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Me",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{guruBase}}/api/auth/me",
+							"host": [
+								"{{guruBase}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"me"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Groups",
+			"item": [
+				{
+					"name": "Get Groups",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"groupName\": \"Group 1\",\n    \"groupType\": \"Open\",\n    \"maxMembers\": 3\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{guruBase}}/api/groups",
+							"host": [
+								"{{guruBase}}"
+							],
+							"path": [
+								"api",
+								"groups"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a Group",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"groupName\": \"Group 1\",\n    \"groupType\": \"Open\",\n    \"maxMembers\": 3\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{guruBase}}/api/groups",
+							"host": [
+								"{{guruBase}}"
+							],
+							"path": [
+								"api",
+								"groups"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Join a Group",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"groupName\": \"Group 1\",\n    \"groupType\": \"Open\",\n    \"maxMembers\": 3\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{guruBase}}/api/groups/:groupId/join",
+							"host": [
+								"{{guruBase}}"
+							],
+							"path": [
+								"api",
+								"groups",
+								":groupId",
+								"join"
+							],
+							"variable": [
+								{
+									"key": "groupId",
+									"value": "681f63fa55bf1df48907d743"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Leave a Group",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{guruBase}}/api/groups/:groupId/leave",
+							"host": [
+								"{{guruBase}}"
+							],
+							"path": [
+								"api",
+								"groups",
+								":groupId",
+								"leave"
+							],
+							"variable": [
+								{
+									"key": "groupId",
+									"value": "681f50a2047d23e1caf4812c"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Join Requests",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"groupName\": \"Group 1\",\n    \"groupType\": \"Open\",\n    \"maxMembers\": 3\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{guruBase}}/api/groups/:groupId/join-requests",
+							"host": [
+								"{{guruBase}}"
+							],
+							"path": [
+								"api",
+								"groups",
+								":groupId",
+								"join-requests"
+							],
+							"variable": [
+								{
+									"key": "groupId",
+									"value": "681f50a2047d23e1caf4812c"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Accept Join Request",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{guruBase}}/api/groups/:groupId/join-requests/:userId/accept",
+							"host": [
+								"{{guruBase}}"
+							],
+							"path": [
+								"api",
+								"groups",
+								":groupId",
+								"join-requests",
+								":userId",
+								"accept"
+							],
+							"variable": [
+								{
+									"key": "groupId",
+									"value": "681f50a2047d23e1caf4812c"
+								},
+								{
+									"key": "userId",
+									"value": "681f5274fc5b596897fc9a5a"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reject Join Request",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{guruBase}}/api/groups/681f50a2047d23e1caf4812c/join-requests/681f5274fc5b596897fc9a5a/reject",
+							"host": [
+								"{{guruBase}}"
+							],
+							"path": [
+								"api",
+								"groups",
+								"681f50a2047d23e1caf4812c",
+								"join-requests",
+								"681f5274fc5b596897fc9a5a",
+								"reject"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Banish User",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"groupName\": \"Group 1\",\n    \"groupType\": \"Open\",\n    \"maxMembers\": 3\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{guruBase}}/api/groups/:groupId/banish/:userId",
+							"host": [
+								"{{guruBase}}"
+							],
+							"path": [
+								"api",
+								"groups",
+								":groupId",
+								"banish",
+								":userId"
+							],
+							"variable": [
+								{
+									"key": "groupId",
+									"value": "681f5253fc5b596897fc9a54"
+								},
+								{
+									"key": "userId",
+									"value": "681f5098047d23e1caf48129"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Transfer Ownership",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"groupName\": \"Group 1\",\n    \"groupType\": \"Open\",\n    \"maxMembers\": 3\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{guruBase}}/api/groups/:groupId/transfer-ownership/:userId",
+							"host": [
+								"{{guruBase}}"
+							],
+							"path": [
+								"api",
+								"groups",
+								":groupId",
+								"transfer-ownership",
+								":userId"
+							],
+							"variable": [
+								{
+									"key": "groupId",
+									"value": "681f5253fc5b596897fc9a54"
+								},
+								{
+									"key": "userId",
+									"value": "681f5274fc5b596897fc9a5a"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Group",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"groupName\": \"Group 1\",\n    \"groupType\": \"Open\",\n    \"maxMembers\": 3\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{guruBase}}/api/groups/:groupId",
+							"host": [
+								"{{guruBase}}"
+							],
+							"path": [
+								"api",
+								"groups",
+								":groupId"
+							],
+							"variable": [
+								{
+									"key": "groupId",
+									"value": "681f5253fc5b596897fc9a54"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Messages",
+			"item": [
+				{
+					"name": "Send Message in Group",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"content\": \"Third message\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{guruBase}}/api/messages/:groupId",
+							"host": [
+								"{{guruBase}}"
+							],
+							"path": [
+								"api",
+								"messages",
+								":groupId"
+							],
+							"variable": [
+								{
+									"key": "groupId",
+									"value": "681f63fa55bf1df48907d743"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Group Messages",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"content\": \"First message\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{guruBase}}/api/messages/:groupId?page=1&limit=2",
+							"host": [
+								"{{guruBase}}"
+							],
+							"path": [
+								"api",
+								"messages",
+								":groupId"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "2"
+								}
+							],
+							"variable": [
+								{
+									"key": "groupId",
+									"value": "681f63fa55bf1df48907d743"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Health Check",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}
