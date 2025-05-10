@@ -12,7 +12,10 @@ const messageSchema = new mongoose.Schema({
         ref: 'Group'
     },
     encryptedContent: {
-        type: String,
+        type: {
+            iv: { type: String, required: true },
+            encryptedData: { type: String, required: true }
+        },
         required: true
     },
     timestamp: {
