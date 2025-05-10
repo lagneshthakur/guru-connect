@@ -40,37 +40,46 @@ This project implements a secure group messaging system that supports both priva
    ```
 
 ## API Documentation
+- Refer to swagger docs available at /api-docs
 
-### Authentication Routes
-- **POST /register**
-  - Request Body: `{ "email": "user@example.com", "password": "yourpassword" }`
-  - Response: `{ "token": "jwt_token" }`
+## Docker
 
-- **POST /login**
-  - Request Body: `{ "email": "user@example.com", "password": "yourpassword" }`
-  - Response: `{ "token": "jwt_token" }`
+### Steps to Run the Project via Docker
 
-### Group Management Routes
-- **POST /groups**
-  - Request Body: `{ "name": "Group Name", "type": "private/open", "maxMembers": 10 }`
-  - Response: `{ "groupId": "group_id" }`
+1. **Build the Docker Image**  
+   Run the following command to build the Docker image:
+   ```
+   docker build -t guru-connect .
+   ```
 
-- **POST /groups/join**
-  - Request Body: `{ "groupId": "group_id" }`
-  - Response: `{ "message": "Join request submitted" }`
+2. **Run the Docker Container**  
+   Use the following command to run the container:
+   ```
+   docker run -p 3000:3000 --env-file .env guru-connect
+   ```
 
-- **DELETE /groups/leave**
-  - Request Body: `{ "groupId": "group_id" }`
-  - Response: `{ "message": "Left the group" }`
+   - `-p 3000:3000`: Maps port 3000 of the container to port 3000 on your host machine.
+   - `--env-file .env`: Passes the environment variables from your `.env` file to the container.
 
-### Messaging Routes
-- **POST /messages**
-  - Request Body: `{ "groupId": "group_id", "message": "Your message" }`
-  - Response: `{ "message": "Message sent" }`
+3. **Access the Application**  
+   Once the container is running, you can access the application at:
+   ```
+   http://localhost:3000
+   ```
 
-- **GET /messages**
-  - Query Parameters: `groupId=group_id`
-  - Response: `[ { "senderId": "user_id", "content": "encrypted_message", "timestamp": "2023-01-01T00:00:00Z" } ]`
+4. **Stop the Container**  
+   To stop the running container, find its container ID using:
+   ```
+   docker ps
+   ```
+   Then stop it using:
+   ```
+   docker stop <container_id>
+   ```
+
+### Notes
+- Ensure that your `.env` file is in the root directory and contains the required environment variables (`DATABASE_URL`, `JWT_SECRET`, etc.).
+- If you are using MongoDB Atlas, make sure your IP address is whitelisted in the MongoDB Atlas network settings.
 
 ## Known Issues
 - Real-time messaging functionality is not implemented but can be added using WebSockets.
