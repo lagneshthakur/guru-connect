@@ -1,6 +1,5 @@
 const Group = require('../models/Group');
 const User = require('../models/User');
-const Message = require('../models/Message');
 const { encryptMessage, decryptMessage } = require('../utils/encryption');
 const { validateGroupCreation, validateJoinRequest, GroupTypes } = require('../utils/validation');
 const waitHours = 48; // Time to wait before rejoining a group after leaving
