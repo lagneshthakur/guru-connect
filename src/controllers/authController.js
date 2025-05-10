@@ -4,6 +4,19 @@ const jwt = require('jsonwebtoken');
 
 // Register a new user
 exports.registerUser = async (req, res) => {
+    /*  #swagger.tags = ['Auth']
+        #swagger.description = 'Register a new user'
+        #swagger.requestBody = {
+        required: true,
+        content: {
+            "application/json": {
+                schema: {
+                    $ref: "#/components/schemas/User"
+                }  
+            }
+        }
+    } */
+
     const { email, password } = req.body;
 
     try {
@@ -36,6 +49,7 @@ exports.registerUser = async (req, res) => {
 
 // Login a user
 exports.loginUser = async (req, res) => {
+    // #swagger.tags = ['Auth']
     const { email, password } = req.body;
 
     try {
@@ -61,6 +75,23 @@ exports.loginUser = async (req, res) => {
         const token = jwt.sign({ id: user._id, email: user.email }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
         res.status(200).json({ token });
+    } catch (error) {
+        res.status(500).json({ message: 'Server error.', error });
+    }
+};
+
+// Get user details
+exports.getUserDetails = async (req, res) => {
+    // #swagger.tags = ['Auth']
+    const userId = req.user.id; // Assuming user ID is stored in req.user after authentication
+
+    try {
+        const user = await User.findById(userId).select('-password').populate('groups', 'name type'); // Exclude password from response
+        if (!user) {
+            return res.status(404).json({ message: 'User not found.' });
+        }
+
+        res.status(200).json(user);
     } catch (error) {
         res.status(500).json({ message: 'Server error.', error });
     }

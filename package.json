@@ -4,6 +4,7 @@
   "description": "A secure group messaging system with user authentication and message encryption.",
   "main": "server.js",
   "scripts": {
+    "swagger-autogen": "node swagger.js",
     "start": "node server.js",
     "dev": "nodemon server.js"
   },
@@ -15,7 +16,7 @@
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.16.0",
     "mongoose": "^8.14.2",
-    "swagger-jsdoc": "^6.2.8",
+    "swagger-autogen": "^2.23.7",
     "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {

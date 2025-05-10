@@ -6,7 +6,7 @@ const groupRoutes = require('./routes/groupRoutes');
 const messageRoutes = require('./routes/messageRoutes');
 const errorHandler = require('./middlewares/errorHandler');
 const swaggerUi = require('swagger-ui-express');
-const swaggerSpec = require('./config/swagger.js');
+const swaggerSpec = require('./swagger-output.json');
 
 const app = express();
 
@@ -24,8 +24,11 @@ app.use('/api/auth', authRoutes);
 app.use('/api/groups', groupRoutes);
 app.use('/api/messages', messageRoutes);
 // Swagger documentation
+app.get('/api-docs/swagger.json', (req, res) => {
+    res.setHeader('Content-Type', 'application/json');
+    res.send(swaggerSpec);
+});
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-
 // Error handling middleware
 app.use(errorHandler);
 

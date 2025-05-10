@@ -3,6 +3,7 @@ const { encryptMessage, decryptMessage } = require('../utils/encryption');
 
 // Send a message to a group
 exports.sendMessage = async (req, res) => {
+    // #swagger.tags = ['Messages']
     const { groupId, content } = req.body;
     const senderId = req.user.id; // Assuming user ID is stored in req.user after authentication
 
@@ -24,6 +25,7 @@ exports.sendMessage = async (req, res) => {
 
 // Get messages from a group
 exports.getMessages = async (req, res) => {
+    // #swagger.tags = ['Messages']
     const { groupId } = req.params;
 
     try {

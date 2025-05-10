@@ -8,12 +8,18 @@ const verifyToken = (req, res, next) => {
         return res.status(401).json({ message: 'No token provided' });
     }
 
-    jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+    // Remove 'Bearer ' prefix if present
+    const tokenWithoutBearer = token.startsWith('Bearer ') ? token.slice(7, token.length) : token;
+    
+    // Verify the token
+    jwt.verify(tokenWithoutBearer, process.env.JWT_SECRET, (err, decoded) => {
         if (err) {
+            console.log('Token verification error:', err);
             return res.status(401).json({ message: 'Unauthorized' });
         }
-
-        req.userId = decoded.id;
+        req.user = {};
+        req.user.id = decoded.id;
+        req.user.email = decoded.email;
         next();
     });
 };
